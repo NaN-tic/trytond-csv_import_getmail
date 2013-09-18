@@ -3,7 +3,6 @@
 # the full copyright notices and license terms.
 from datetime import datetime
 from trytond.pool import Pool, PoolMeta
-
 import logging
 
 __all__ = ['CSVImport']
@@ -33,25 +32,28 @@ class CSVImport:
                 continue
             csv_profile = csv_profiles[0]
 
-            logging.getLogger('CSV Import Fetch Mail').info(
+            logging.getLogger('CSV Import Get Mail').info(
                 'Process email: %s' % (message.messageid))
 
             for attachment in message.attachments:
-                csv_archive = CSVArchive()
-                csv_archive.profile = csv_profile
-                csv_archive.data = attachment[1]
-                csv_archive.archive_name = (
-                    csv_archive.on_change_profile()['archive_name'])
-                csv_archive.save()
-                comment = (message.date + '\n' + message.title + '\n' +
-                    message.sender + '\n\n' + message.body)
-                vals = {
-                    'create_date': datetime.now(),
-                    'record': None,
-                    'status': 'done',
-                    'comment': comment,
-                    'archive': csv_archive,
-                }
-                cls.create([vals])
-                CSVArchive().import_csv([csv_archive])
+                if attachment[0][-3:].upper() == 'CSV':
+                    csv_archive = CSVArchive()
+                    csv_archive.profile = csv_profile
+                    csv_archive.data = attachment[1]
+                    csv_archive.archive_name = (
+                        csv_archive.on_change_profile()['archive_name'])
+                    csv_archive.save()
+                    comment = (message.date + '\n' + message.title + '\n' +
+                        message.sender + '\n\n' + message.body)
+                    vals = {
+                        'create_date': datetime.now(),
+                        'record': None,
+                        'status': 'done',
+                        'comment': comment,
+                        'archive': csv_archive,
+                    }
+                    cls.create([vals])
+    
+                    CSVArchive().import_csv([csv_archive])
+
         return True
