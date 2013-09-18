@@ -21,12 +21,6 @@ class CSVImportGetMailTestCase(unittest.TestCase):
     def setUp(self):
         trytond.tests.test_tryton.install_module('csv_import_getmail')
 
-    def test0005views(self):
-        '''
-        Test views.
-        '''
-        test_view('csv_import_getmail')
-
     def test0006depends(self):
         '''
         Test depends.
