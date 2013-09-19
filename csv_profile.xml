@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- This file is part of csv_import_getmail module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <!-- Access csv.archive -->
+        <record model="ir.model.access" id="access_csv_archive_admin">
+            <field name="model" search="[('model', '=', 'csv.archive')]"/>
+            <field name="group" ref="getmail.group_getmail"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_csv_archive">
+            <field name="model" search="[('model', '=', 'csv.archive')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <!-- Access csv.import -->
+        <record model="ir.model.access" id="access_csv_import_admin">
+            <field name="model" search="[('model', '=', 'csv.import')]"/>
+            <field name="group" ref="getmail.group_getmail"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_csv_import">
+            <field name="model" search="[('model', '=', 'csv.import')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+    </data>
+</tryton>
