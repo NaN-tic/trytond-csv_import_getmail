@@ -19,12 +19,12 @@ class CSVImport:
         CSVArchive = pool.get('csv.archive')
         CSVProfile = pool.get('csv.profile')
 
-        for (messageid, message) in messages:
+        for (_, message) in messages:
             if not attachments:
                 break
 
             sender = GetMail.get_email(message.sender)
-            party, address = GetMail.get_party_from_email(sender)
+            party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 continue
             csv_profiles = CSVProfile.search([('party', '=', party)])
@@ -53,7 +53,6 @@ class CSVImport:
                         'archive': csv_archive,
                     }
                     cls.create([vals])
-    
                     CSVArchive().import_csv([csv_archive])
 
         return True
