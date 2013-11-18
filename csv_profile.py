@@ -3,10 +3,27 @@
 # the full copyright notices and license terms.
 from datetime import datetime
 from trytond.pool import Pool, PoolMeta
+from trytond.model import ModelSQL, ModelView, fields
 import logging
 
-__all__ = ['CSVImport']
+__all__ = ['CSVProfile', 'CSVProfileParty', 'CSVImport']
 __metaclass__ = PoolMeta
+
+
+class CSVProfile(ModelSQL, ModelView):
+    __name__ = 'csv.profile'
+    parties = fields.Many2Many('csv.profile-party.party',
+        'profile', 'party', 'Parties')
+
+
+class CSVProfileParty(ModelSQL):
+    'Profile - Party'
+    __name__ = 'csv.profile-party.party'
+    _table = 'csv_profile_party_rel'
+    profile = fields.Many2One('csv.profile', 'CSV Profile', ondelete='CASCADE',
+            required=True, select=True)
+    party = fields.Many2One('party.party', 'Party',
+        ondelete='CASCADE', required=True, select=True)
 
 
 class CSVImport:
@@ -27,7 +44,7 @@ class CSVImport:
             party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 continue
-            csv_profiles = CSVProfile.search([('party', '=', party)])
+            csv_profiles = CSVProfile.search([('parties', 'in', [party])])
             if not csv_profiles:
                 continue
             csv_profile = csv_profiles[0]

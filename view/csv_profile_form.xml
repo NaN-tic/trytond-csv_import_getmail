@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- This file is part of csv_import_getmail module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<data>
+    <xpath
+        expr="/form/notebook/page[@id='configuration']"
+        position="after">
+        <page string="Parties" col="4" id="party">
+            <separator string="Parties" id="parties" colspan="4"/>
+            <field name="parties"/>
+        </page>
+    </xpath>
+</data>

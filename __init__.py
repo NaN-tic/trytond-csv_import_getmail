@@ -7,5 +7,7 @@ from .csv_profile import *
 
 def register():
     Pool.register(
+        CSVProfile,
+        CSVProfileParty,
         CSVImport,
         module='csv_import_getmail', type_='model')

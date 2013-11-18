@@ -3,6 +3,12 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+        <record model="ir.ui.view" id="csv_profile_form_view">
+            <field name="model">csv.profile</field>
+            <field name="inherit" ref="csv_import.csv_profile_form_view"/>
+            <field name="name">csv_profile_form</field>
+        </record>
+
         <!-- Access csv.archive -->
         <record model="ir.model.access" id="access_csv_archive_admin">
             <field name="model" search="[('model', '=', 'csv.archive')]"/>
@@ -19,6 +25,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
+
         <!-- Access csv.import -->
         <record model="ir.model.access" id="access_csv_import_admin">
             <field name="model" search="[('model', '=', 'csv.import')]"/>
