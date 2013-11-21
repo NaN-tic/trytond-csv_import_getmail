@@ -44,7 +44,7 @@ class CSVImport:
             party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 continue
-            csv_profiles = CSVProfile.search([('parties', 'in', [party])])
+            csv_profiles = CSVProfile.search([('parties', 'in', [party.id])])
             if not csv_profiles:
                 continue
             csv_profile = csv_profiles[0]
