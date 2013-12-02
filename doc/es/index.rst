@@ -1,11 +1,8 @@
-==================================================
-Importar CSV desde recepción de correo electrónico
-==================================================
+==========================================================
+CSV Import. Importación CSV a partir de correo electrónico
+==========================================================
 
-Importa registros desde ficheros csv enviados por correo electrónico.
-
-Configuración
-=============
+Importa registros desde ficheros CSV enviados por correo electrónico.
 
 * Configure una cuenta de correo electrónico de entrada IMAP a través del menú
   Getmail Server tal y como se indica para el módulo Recepción de
