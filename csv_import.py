@@ -25,7 +25,7 @@ class CSVProfile(ModelSQL, ModelView):
             if not message.attachments:
                 logging.getLogger('Getmail CSV Import').info(
                     'Not attachments. Continue')
-                break
+                continue
 
             sender = GetMail.get_email(message.sender)
             party, _ = GetMail.get_party_from_email(sender)
