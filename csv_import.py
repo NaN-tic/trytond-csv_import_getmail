@@ -1,7 +1,6 @@
 # This file is part of csv_import_getmail module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-from datetime import datetime
 from trytond.pool import Pool, PoolMeta
 from trytond.model import ModelSQL, ModelView, fields
 import logging
@@ -44,8 +43,10 @@ class CSVProfile(ModelSQL, ModelView):
             logging.getLogger('CSV Import Get Mail').info(
                 'Process email: %s' % (message.messageid))
 
+            attch = None
             for attachment in message.attachments:
                 if attachment[0][-3:].upper() == 'CSV':
+                    attch = True
                     logging.getLogger('CSV Import Get Mail').info(
                         'Process import CSV: %s' % (message.messageid))
                     csv_archive = CSVArchive()
@@ -55,9 +56,9 @@ class CSVProfile(ModelSQL, ModelView):
                         csv_archive.on_change_profile()['archive_name'])
                     csv_archive.save()
                     CSVArchive().import_csv([csv_archive])
-                else:
-                    logging.getLogger('CSV Import Get Mail').info(
-                        'Not attachment CSV: %s' % (message.messageid))
+            if not attch:
+                logging.getLogger('CSV Import Get Mail').info(
+                    'Not attachment CSV: %s' % (message.messageid))
 
         return True
 
