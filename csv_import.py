@@ -15,19 +15,23 @@ class CSVProfile(ModelSQL, ModelView):
         'profile', 'party', 'Parties')
 
     @classmethod
-    def getmail(cls, messages, attachments=None):
+    def getmail(self, messages, attachments=None):
         pool = Pool()
         GetMail = pool.get('getmail.server')
         CSVArchive = pool.get('csv.archive')
         CSVProfile = pool.get('csv.profile')
 
-        for (_, message) in messages:
+        for (messageid, message) in messages:
             if not message.attachments:
                 logging.getLogger('Getmail CSV Import').info(
                     'Not attachments. Continue')
                 continue
+            if not message.from_addr:
+                logging.getLogger('Getmail CSV Import').info(
+                    'Not from address email. Continue')
+                continue
 
-            sender = GetMail.get_email(message.sender)
+            sender = GetMail.get_email(message.from_addr[1:-1])
             party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 logging.getLogger('Getmail CSV Import').info(
