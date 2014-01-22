@@ -3,6 +3,8 @@
 # the full copyright notices and license terms.
 from trytond.pool import Pool, PoolMeta
 from trytond.model import ModelSQL, ModelView, fields
+
+from email.utils import parseaddr
 import logging
 
 __all__ = ['CSVProfile', 'CSVProfileParty']
@@ -26,12 +28,12 @@ class CSVProfile(ModelSQL, ModelView):
                 logging.getLogger('Getmail CSV Import').info(
                     'Not attachments. Continue')
                 continue
-            if not message.from_addr:
+            if not message.sender:
                 logging.getLogger('Getmail CSV Import').info(
                     'Not from address email. Continue')
                 continue
 
-            sender = GetMail.get_email(message.from_addr[1:-1])
+            sender = GetMail.get_email(parseaddr(message.sender)[1])
             party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 logging.getLogger('Getmail CSV Import').info(
