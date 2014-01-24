@@ -28,12 +28,12 @@ class CSVProfile(ModelSQL, ModelView):
                 logging.getLogger('Getmail CSV Import').info(
                     'Not attachments. Continue')
                 continue
-            if not message.sender:
+            if not message.from_addr:
                 logging.getLogger('Getmail CSV Import').info(
                     'Not from address email. Continue')
                 continue
 
-            sender = parseaddr(message.sender)[1]
+            sender = parseaddr(message.from_addr)[1]
             party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 logging.getLogger('Getmail CSV Import').info(
