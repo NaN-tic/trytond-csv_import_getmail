@@ -33,7 +33,7 @@ class CSVProfile(ModelSQL, ModelView):
                     'Not from address email. Continue')
                 continue
 
-            sender = GetMail.get_email(parseaddr(message.sender)[1])
+            sender = parseaddr(message.sender)[1]
             party, _ = GetMail.get_party_from_email(sender)
             if not party:
                 logging.getLogger('Getmail CSV Import').info(
