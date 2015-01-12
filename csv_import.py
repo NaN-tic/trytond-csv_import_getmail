@@ -55,7 +55,7 @@ class CSVProfile(ModelSQL, ModelView):
                 if attachment[0][-3:].upper() == 'CSV':
                     attch = True
                     logging.getLogger('CSV Import Get Mail').info(
-                        'Process import CSV: %s' % (message.messageid))
+                        'Process import CSV: %s' % (msgeid))
                     csv_archive = CSVArchive()
                     csv_archive.profile = csv_profile
                     csv_archive.data = attachment[1]
@@ -65,7 +65,7 @@ class CSVProfile(ModelSQL, ModelView):
                     CSVArchive().import_csv([csv_archive])
             if not attch:
                 logging.getLogger('CSV Import Get Mail').info(
-                    'Not attachment CSV: %s' % (message.messageid))
+                    'Not attachment CSV: %s' % (msgeid))
 
         return True
 
