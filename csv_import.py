@@ -23,7 +23,8 @@ class CSVProfile(ModelSQL, ModelView):
         CSVArchive = pool.get('csv.archive')
         CSVProfile = pool.get('csv.profile')
 
-        for (messageid, message) in messages:
+        for message in messages:
+            msgeid = str(message.uid)
             if not message.attachments:
                 logging.getLogger('Getmail CSV Import').info(
                     'Not attachments. Continue')
@@ -47,7 +48,7 @@ class CSVProfile(ModelSQL, ModelView):
             csv_profile = csv_profiles[0]
 
             logging.getLogger('CSV Import Get Mail').info(
-                'Process email: %s' % (message.messageid))
+                'Process email: %s' % (msgeid))
 
             attch = None
             for attachment in message.attachments:
