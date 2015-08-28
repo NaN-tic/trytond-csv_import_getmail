@@ -54,8 +54,7 @@ class CSVProfile(ModelSQL, ModelView):
                     csv_archive = CSVArchive()
                     csv_archive.profile = csv_profile
                     csv_archive.data = attachment[1]
-                    csv_archive.archive_name = (
-                        csv_archive.on_change_profile()['archive_name'])
+                    csv_archive.on_change_profile()
                     csv_archive.save()
                     CSVArchive().import_csv([csv_archive])
             if not attch:
