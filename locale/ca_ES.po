@@ -16,7 +16,7 @@ msgstr "Usuari creació"
 
 msgctxt "field:csv.profile-party.party,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:csv.profile-party.party,party:"
 msgid "Party"
