@@ -18,7 +18,7 @@ class CSVProfile(ModelSQL, ModelView):
         'profile', 'party', 'Parties')
 
     @classmethod
-    def getmail(self, messages, attachments=None):
+    def getmail(self, server, messages):
         pool = Pool()
         GetMail = pool.get('getmail.server')
         CSVArchive = pool.get('csv.archive')
