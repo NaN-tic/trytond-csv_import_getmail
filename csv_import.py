@@ -2,17 +2,17 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from trytond.pool import Pool, PoolMeta
-from trytond.model import ModelSQL, ModelView, fields
+from trytond.model import ModelSQL, fields
 from email.utils import parseaddr
 import logging
 
 __all__ = ['CSVProfile', 'CSVProfileParty']
-__metaclass__ = PoolMeta
 
 logger = logging.getLogger(__name__)
 
 
-class CSVProfile(ModelSQL, ModelView):
+class CSVProfile:
+    __metaclass__ = PoolMeta
     __name__ = 'csv.profile'
     parties = fields.Many2Many('csv.profile-party.party',
         'profile', 'party', 'Parties')
